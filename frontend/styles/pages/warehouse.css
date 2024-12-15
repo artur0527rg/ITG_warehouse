@@ -1,0 +1,50 @@
+.storage-container {
+  position: fixed;
+  display: flex;
+
+  padding-top: 10px;
+  left: 64px;
+  right: 0px;
+  top: 0px;
+}
+
+.storage-list {
+  display: flex;
+  margin-left: auto;
+  overflow-x:auto;
+}
+
+.storage,
+.active-storage {
+  flex-shrink: 0;
+  padding: 7px;
+  margin-right: 10px;
+  border-radius: 10%;
+  background-color: #001F3F;
+  border-width: 2px;
+  border-style: solid;
+  color:white;
+  border-color: #001F3F;
+}
+
+.active-storage {
+  background-color: white;
+  color: #001F3F;
+}
+
+.search-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: gold;
+  height: 60px;
+  width: 60px;
+}
+
+.search-image {
+  height: 70%;
+}
