@@ -1,0 +1,97 @@
+.sidebar{
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  width: 64px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #001F3F;
+}
+
+.top-section {
+  padding-top: 10px;
+}
+
+.logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+}
+
+.logo span {
+  padding-top: 50px;
+}
+
+.middle-section {
+  flex:1;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.bottom-section {
+  padding-bottom: 10px;
+}
+
+.warehouse-button-container,
+.orders-button-container,
+.logout-button-container,
+.active-button-container {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px 0px 0px 10px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.active-button-container {
+  background-color: white;
+  cursor: default;
+}
+
+.warehouse-button-container:hover,
+.orders-button-container:hover,
+.logout-button-container:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.warehouse-button-image,
+.orders-button-image,
+.logout-button-image,
+.active-button-image {
+  width: 70%;
+}
+
+.warehouse-button-image,
+.orders-button-image,
+.logout-button-image {
+  filter: invert(100%) sepia(95%) saturate(12%) hue-rotate(211deg) brightness(104%) contrast(100%);
+}
+
+.active-button-image {
+  filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(272deg) brightness(108%) contrast(108%);
+}
+
+.warehouse-button-text,
+.orders-button-text,
+.logout-button-text,
+.active-button-text {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.warehouse-button-text,
+.orders-button-text,
+.logout-button-text {
+  color: white;
+}
+
+.active-button-text {
+  color: black;
+}
