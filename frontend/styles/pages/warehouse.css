@@ -25,12 +25,21 @@
   border-style: solid;
   color:white;
   border-color: #001F3F;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.storage:hover {
+  color: #6cbbfa;
+  border-color: #6cbbfa;
+  background-color: #eceff3;
 }
 
 .active-storage {
   color: #6cbbfa;
   border-color: #6cbbfa;
   background-color: #eceff3;
+  cursor: default;
 }
 
 .search-container {
