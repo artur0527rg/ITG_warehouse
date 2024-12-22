@@ -75,7 +75,7 @@
 }
 
 .active-button-image {
-  filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(272deg) brightness(108%) contrast(108%);
+  filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(6910%) hue-rotate(182deg) brightness(105%) contrast(96%);
 }
 
 .warehouse-button-text,
@@ -93,5 +93,5 @@
 }
 
 .active-button-text {
-  color: black;
+  color: #6cbbfa;
 }
