@@ -58,3 +58,40 @@
 .search-image {
   height: 70%;
 }
+
+/* Storage */
+.storage-container {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 10px;
+}
+
+.column-container {
+  width: 150px;
+  margin-right: 10px;
+  padding-bottom: 10px;
+
+  background-color: white;
+  border-radius: 10px;
+}
+
+.column-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.column-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.column-capacity {
+  display: inline-block;
+  font-size: 12px;
+  padding:5px;
+  border-radius: 3.5px;
+}
+
