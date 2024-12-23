@@ -6,6 +6,7 @@
   left: 64px;
   right: 0px;
   top: 0px;
+  z-index: 1;
 }
 
 .storage-list {
@@ -53,6 +54,7 @@
   background-color: gold;
   height: 60px;
   width: 60px;
+  z-index: 1;
 }
 
 .search-image {
@@ -61,9 +63,10 @@
 
 /* Storage */
 .storage-container {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
   padding: 10px;
+  transform-origin: 0 0;
 }
 
 .column-container {

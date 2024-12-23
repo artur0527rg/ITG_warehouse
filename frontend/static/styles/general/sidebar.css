@@ -9,6 +9,7 @@
   flex-direction: column;
 
   background-color: #001F3F;
+  z-index: 1;
 }
 
 .top-section {
