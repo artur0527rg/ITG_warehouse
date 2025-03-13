@@ -22,7 +22,7 @@ class Place(models.Model):
         unique_together = ('line', 'position')
 
     def __str__(self):
-        return f"Place {self.position} in line {self.line.name}"
+        return f"Place {self.position} in line {self.line}"
 
 class Order(models.Model):
     bordero = models.IntegerField()
@@ -35,7 +35,7 @@ class Order(models.Model):
 
 class Pallet(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.OneToOneField(Place, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Pallet for {self.order} at place {self.place.position} in line {self.place.line.name}"
+        return f"Pallet for {self.order} at {self.place}"
