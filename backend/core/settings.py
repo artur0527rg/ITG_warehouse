@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*r_u-+*^du7a+wrpk-eb8!^9rjm=*i9y!@e&ek7%rn1m-!c0bn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,6 +94,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+# Channels
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
 }
 
 
