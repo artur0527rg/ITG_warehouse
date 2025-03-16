@@ -10,32 +10,31 @@ class ConsumerGroups(StrEnum):
 
 
 class BoardEventTypes(StrEnum):
-    PALLET = 'pallet_update'
-    ORDER = 'order_update'
+    PALLET = 'pallet.update'
+    ORDER = 'order.update'
 
 
 class BoardConsumer(WebsocketConsumer):
-    async def connect(self):
+    def connect(self):
         async_to_sync(self.channel_layer.group_add)(
             ConsumerGroups.BOARD, self.channel_name
         )
-        print(self.scope['user'])
         self.accept()
 
-    async def disconnect(self, close_code):
+    def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
             ConsumerGroups.BOARD, self.channel_name
         )
 
-    async def receive(self, text_data):
-        # Send message to room group
+    def receive(self, text_data):
         self.send(text_data='pong')
         async_to_sync(self.channel_layer.group_send)(
             ConsumerGroups.BOARD,
             {"type": BoardEventTypes.PALLET, "message": 'message'},
         )
 
-    # Receive message from room group
-    async def pallet_update(self, event):
-        message = event["message"]
-        self.send(text_data=json.dumps({"message": message}))
+    def order_update(self, event):
+        self.send(text_data=json.dumps(event))
+
+    def pallet_update(self, event):
+        self.send(text_data=json.dumps(event))
