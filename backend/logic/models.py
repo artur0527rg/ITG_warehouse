@@ -40,7 +40,7 @@ class Order(models.Model):
 
 class Pallet(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pallets')
-    place = models.OneToOneField(Place, on_delete=models.CASCADE, related_name='pallets')
+    place = models.OneToOneField(Place, on_delete=models.CASCADE, related_name='pallet')
 
     def __str__(self):
         return f"Pallet for {self.order} at {self.place}"

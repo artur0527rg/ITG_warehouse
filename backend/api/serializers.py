@@ -17,11 +17,11 @@ class PalletSerializer(serializers.ModelSerializer):
 
 
 class PlaceSerializer(serializers.ModelSerializer):
-    pallets = PalletSerializer()
+    pallet = PalletSerializer()
 
     class Meta:
         model = Place
-        fields = ['id', 'position', 'pallets']
+        fields = ['id', 'position', 'pallet']
 
 
 class LineSerializer(serializers.ModelSerializer):
