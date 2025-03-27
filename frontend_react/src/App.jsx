@@ -4,12 +4,14 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import Login from "./routes/Login";
 import Warehouse from "./routes/Warehouse";
 import Orders from "./routes/Orders";
+import Logout from "./routes/Logout";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/login" element={<Login/>} />
+        <Route path="/logout" element={<Logout/>}/>
         <Route element={<PrivateRoutes/>}>
           <Route path="/" element={<Navigate to={'/board'}/>}/>
           <Route path="/board" element={<Warehouse/>}/>

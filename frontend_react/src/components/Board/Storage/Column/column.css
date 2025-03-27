@@ -1,0 +1,30 @@
+.column-container {
+  align-self: start;
+  width: 160px;
+}
+
+.column-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 2px solid lightgray;
+  margin-bottom: 10px;
+}
+
+.column-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.column-capacity {
+  color: rgb(129, 129, 129);
+}
+
+.column-units {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-right: 2px solid lightgray;
+}

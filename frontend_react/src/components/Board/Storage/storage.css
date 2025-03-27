@@ -1,0 +1,6 @@
+.storage-container {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  padding: 10px;
+  transform-origin: 0 0;
+}
