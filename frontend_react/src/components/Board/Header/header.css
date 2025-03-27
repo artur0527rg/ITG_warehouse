@@ -1,0 +1,43 @@
+.header {
+  position: absolute;
+  display: flex;
+
+  padding-top: 10px;
+  left: 64px;
+  right: 0px;
+  top: 0px;
+  z-index: 1;
+}
+
+.storage-list {
+  display: flex;
+  margin-left: auto;
+  overflow-x:auto;
+}
+
+.storage {
+  flex-shrink: 0;
+  padding: 7px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #001F3F;
+  border-width: 2px;
+  border-style: solid;
+  color:white;
+  border-color: #001F3F;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.storage:hover {
+  color: #6cbbfa;
+  border-color: #6cbbfa;
+  background-color: #eceff3;
+}
+
+.storage.active {
+  color: #6cbbfa;
+  border-color: #6cbbfa;
+  background-color: #eceff3;
+  cursor: default;
+}
