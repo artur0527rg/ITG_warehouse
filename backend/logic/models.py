@@ -9,7 +9,7 @@ class Zone(models.Model):
         return self.name
 
 class Line(models.Model):
-    zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE, related_name='lines')
     position = models.IntegerField()
     name = models.CharField(max_length=50)
 
@@ -20,7 +20,7 @@ class Line(models.Model):
         return self.name
 
 class Place(models.Model):
-    line = models.ForeignKey(Line, on_delete=models.CASCADE)
+    line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name='places')
     position = models.IntegerField()
 
     class Meta:
@@ -39,8 +39,8 @@ class Order(models.Model):
         return f"Order {self.bordero} - {self.vsa}"
 
 class Pallet(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    place = models.OneToOneField(Place, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pallets')
+    place = models.OneToOneField(Place, on_delete=models.CASCADE, related_name='pallets')
 
     def __str__(self):
         return f"Pallet for {self.order} at {self.place}"

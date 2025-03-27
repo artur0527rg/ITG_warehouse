@@ -2,8 +2,8 @@ from rest_framework import viewsets
 
 from logic.models import Zone, Line, Place, Order, Pallet
 from api.serializers import (
-    ZoneSerializer, LineSerializer, PlaceSerializer, OrderSerializer,
-    PalletSerializer,
+    ZoneListSerializer, ZoneDetailSerializer, LineSerializer, PlaceSerializer,
+    OrderSerializer, PalletSerializer,
 )
 from api.filters import (
     LineFilter, PlaceFilter, OrderFilter, PalletFilter,
@@ -12,7 +12,11 @@ from api.filters import (
 
 class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Zone.objects.all()
-    serializer_class = ZoneSerializer
+    
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ZoneListSerializer
+        return ZoneDetailSerializer
 
 class LineViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Line.objects.all()

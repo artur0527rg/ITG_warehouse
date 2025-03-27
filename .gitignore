@@ -9,3 +9,5 @@ test.html
 # javascript env
 node_modules/
 dist/
+
+*.http
