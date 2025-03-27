@@ -6,9 +6,9 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const navigate = useNavigate();
-  const loginAction = async (data) => {
+  const logIn = async (data) => {
     try {
-      const response = await fetch("127.0.0.1:80/api/token-auth/", {
+      const response = await fetch("http://127.0.0.1:8000/api/token-auth/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -16,10 +16,10 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify(data),
       });
       const res = await response.json();
-      if (res.data) {
+      if (res.token) {
         setToken(res.token);
         localStorage.setItem("token", res.token);
-        navigate("/dashboard");
+        navigate("/");
         return;
       }
       throw new Error(res.message);
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, loginAction, logOut }}>
+    <AuthContext.Provider value={{ token, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );
