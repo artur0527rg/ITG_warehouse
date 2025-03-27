@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [accessToken , setAccessToken] = useState(localStorage.getItem('access'));
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh'));
 
