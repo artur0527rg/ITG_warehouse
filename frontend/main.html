@@ -1,184 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Styles -->
-  <link rel="stylesheet" href="static/styles/general/general.css">
-  <link rel="stylesheet" href="static/styles/general/sidebar.css">
-  <link rel="stylesheet" href="static/styles/pages/warehouse.css">
-  <link rel="stylesheet" href="static/styles/general/gpt.css">
+  <head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/styles/general/general.css" />
+    <link rel="stylesheet" href="static/styles/general/sidebar.css" />
+    <link rel="stylesheet" href="static/styles/pages/warehouse.css" />
+    <link rel="stylesheet" href="static/styles/general/gpt.css" />
 
-  <!-- Scripts -->
-  <script defer src="static/scripts/pages/warehouse.js"></script> 
+    <!-- Scripts -->
+    <script defer src="static/scripts/pages/warehouse.js"></script>
 
-  <link rel="icon" type="image/x-icon" href="static\logo\itg-logo-nobg.png">
-  <title>ITG Warehouse Manager</title>
-</head>
-<body>
-  <div class="sidebar">
-    <div class="top-section">
-      <img class="logo" src="static/logo/itg-logo.jpeg" alt="">
-    </div>
-    <div class="middle-section">
-      <div class="active-button-container">
-        <img class="active-button-image" src="static/icons/warehouse.svg" alt="">
-        <span class="active-button-text">Warehouse</span>
+    <link rel="icon" type="image/x-icon" href="static\logo\itg-logo-nobg.png" />
+    <title>ITG Warehouse Manager</title>
+  </head>
+  <body>
+    <div class="app">
+    <div class="sidebar">
+      <div class="top-section">
+        <img class="logo" src="static/logo/itg-logo.jpeg" alt="" />
       </div>
-      <div class="orders-button-container">
-        <img class="orders-button-image" src="static/icons/truck.svg" alt="">
-        <span class="orders-button-text">Orders</span>
+      <div class="middle-section">
+        <div class="active-button-container">
+          <img
+            class="active-button-image"
+            src="static/icons/warehouse.svg"
+            alt=""
+          />
+          <span class="active-button-text">Warehouse</span>
+        </div>
+        <div class="orders-button-container">
+          <img
+            class="orders-button-image"
+            src="static/icons/truck.svg"
+            alt=""
+          />
+          <span class="orders-button-text">Orders</span>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="logout-button-container">
+          <img
+            class="logout-button-image"
+            src="static/icons/logout.svg"
+            alt=""
+          />
+          <span class="logout-button-text">Logout</span>
+        </div>
       </div>
     </div>
-    <div class="bottom-section">
-      <div class="logout-button-container">
-        <img class="logout-button-image" src="static/icons/logout.svg" alt="">
-        <span class="logout-button-text">Logout</span>
+    <div class="board">
+      <div class="header">
+        <div class="storage-list">
+          <div class="active-storage">Storage A</div>
+          <div class="storage">Storage B</div>
+          <div class="storage">Storage C</div>
+        </div>
+      </div>
+      <div class="search-container">
+        <img class="search-image" src="static/icons/search.svg" alt="" />
+      </div>
+      <div id="storage-container" class="storage-container">
+        <div class="column-container">
+          <div class="column-info">
+            <div class="column-title">D-24</div>
+            <div class="column-capacity">🟢 Free (0 <span>&#47;</span> 8)</div>
+          </div>
+          <div class="column-units">
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <!-- column-container -->
+        <div class="column-container">
+          <div class="column-info">
+            <div class="column-title">D-23</div>
+            <div class="column-capacity">
+              🟡 Partial (3 <span>&#47;</span> 8)
+            </div>
+          </div>
+          <div class="column-units">
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div style="background-color: #ffc145" class="column-unit">
+              <span class="column-unit-title">CO</span>
+              <span class="column-unit-bordero">162560</span>
+              <span class="column-unit-shipment">47800</span>
+            </div>
+            <div style="background-color: #ffc145" class="column-unit">
+              <span class="column-unit-title">CO</span>
+              <span class="column-unit-bordero">162560</span>
+              <span class="column-unit-shipment">47800</span>
+            </div>
+            <div style="background-color: #4580ff" class="column-unit">
+              <span class="column-unit-title">KZ</span>
+              <span class="column-unit-bordero">162561</span>
+              <span class="column-unit-shipment">47801</span>
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-blank-unit">
+              <img
+                class="column-blank-unit-image"
+                src="static/icons/add.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <!-- column-container -->
+        <div class="column-container">
+          <div class="column-info">
+            <div class="column-title">D-23</div>
+            <div class="column-capacity">🔴 Full (8 <span>&#47;</span> 8)</div>
+          </div>
+          <div class="column-units">
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+            <div style="background-color: #ece852" class="column-unit">
+              <span class="column-unit-title">AE</span>
+              <span class="column-unit-bordero">162562</span>
+              <span class="column-unit-shipment"></span>
+            </div>
+          </div>
+        </div>
+        <!-- column-container -->
       </div>
     </div>
   </div>
-  <div class="header">
-    <div class="storage-list">
-      <div class="active-storage">Storage A</div>
-      <div class="storage">Storage B</div>
-      <div class="storage">Storage C</div>
-    </div>
-  </div>
-  <div class="search-container">
-    <img class="search-image" src="static/icons/search.svg" alt="">
-  </div>
-  <div id="storage-container" class="storage-container">
-    <div class="column-container">
-      <div class="column-info">
-        <div class="column-title">
-          D-24
-        </div>
-        <div class="column-capacity">
-          🟢 Free (0 <span>&#47;</span> 8)
-        </div>
-      </div>
-      <div class="column-units">
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-      </div>
-    </div>
-    <!-- column-container -->
-    <div class="column-container">
-      <div class="column-info">
-        <div class="column-title">
-          D-23
-        </div>
-        <div class="column-capacity">
-          🟡 Partial (3 <span>&#47;</span> 8)
-        </div>
-      </div>
-      <div class="column-units">
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div style="background-color: #FFC145;" class="column-unit">
-          <span class="column-unit-title">CO</span>
-          <span class="column-unit-bordero">162560</span>
-          <span class="column-unit-shipment">47800</span>
-        </div>
-        <div style="background-color: #FFC145;" class="column-unit">
-          <span class="column-unit-title">CO</span>
-          <span class="column-unit-bordero">162560</span>
-          <span class="column-unit-shipment">47800</span>
-        </div>
-        <div style="background-color: #4580ff;" class="column-unit">
-          <span class="column-unit-title">KZ</span>
-          <span class="column-unit-bordero">162561</span>
-          <span class="column-unit-shipment">47801</span>
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-        <div class="column-blank-unit">
-          <img class="column-blank-unit-image" src="static/icons/add.svg" alt="">
-        </div>
-      </div>
-    </div>
-    <!-- column-container -->
-    <div class="column-container">
-      <div class="column-info">
-        <div class="column-title">
-          D-23
-        </div>
-        <div class="column-capacity">
-          🔴 Full (8 <span>&#47;</span> 8)
-        </div>
-      </div>
-      <div class="column-units">
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-        <div style="background-color: #ECE852;" class="column-unit">
-          <span class="column-unit-title">AE</span>
-          <span class="column-unit-bordero">162562</span>
-          <span class="column-unit-shipment"></span>
-        </div>
-      </div>
-    </div>
-    <!-- column-container -->
-  </div>
-</body>
+  </body>
 </html>

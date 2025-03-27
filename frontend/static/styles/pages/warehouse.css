@@ -1,5 +1,18 @@
+.app {
+  display: flex;
+  
+  font-family: Montserrat, sans-serif;
+}
+
+.board {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
 .header {
-  position: fixed;
+  position: absolute;
   display: flex;
 
   padding-top: 10px;
@@ -44,7 +57,7 @@
 }
 
 .search-container {
-  position: fixed;
+  position: absolute;
   bottom: 10px;
   right: 10px;
   display: flex;
