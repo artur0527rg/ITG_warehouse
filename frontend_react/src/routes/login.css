@@ -5,6 +5,7 @@
   align-items: center;
   background: linear-gradient(135deg, #1B8AF1, #B58DED);
   padding: 20px;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .login-container {
