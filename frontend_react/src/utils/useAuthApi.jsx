@@ -3,9 +3,10 @@ import { useAuth } from '../contexts/AuthProvider'
 
 const useAuthApi = () => {
   const { token } = useAuth()
+  const BASE_URL = process.env.API_URL + '/api'
   
   const apiClient = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: BASE_URL,
     headers: {'Content-Type': 'application/json'}
   });
 

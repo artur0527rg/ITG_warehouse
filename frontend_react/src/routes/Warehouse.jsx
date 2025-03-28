@@ -1,12 +1,15 @@
 import Sidebar from "../components/SideBar/Sidebar";
-import './warehouse.css'
+import "./warehouse.css";
 import Board from "../components/Board/Board";
+import OrderProvider from "../contexts/OrderProvider";
 
 const Warehouse = () => {
   return (
     <div className="app">
-      <Sidebar/>
-      <Board/>
+      <OrderProvider>
+        <Sidebar />
+        <Board />
+      </OrderProvider>
     </div>
   );
 };
