@@ -1,0 +1,31 @@
+.search-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: gold;
+  height: 60px;
+  width: 60px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.search-container.active-order {
+  background-color: red;
+}
+
+.search-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-container:active {
+  transform: translateY(0);
+}
+
+.search-image {
+  height: 60%;
+}
