@@ -5,7 +5,8 @@ from django.db.models.signals import post_save, post_delete
 from channels.layers import get_channel_layer
 
 from .models import Order, Pallet
-from api.serializers import OrderSerializer, PalletSerializer
+from api.serializers import OrderSerializer
+from ws.serializers import WSPalletSerializer
 from ws.consumers import ConsumerGroups, BoardEventTypes
 
 
@@ -43,7 +44,7 @@ def order_change_signal(instance, **kwargs):
     else:
         event_type = 'delete'
 
-    serialized_object = PalletSerializer(instance).data
+    serialized_object = WSPalletSerializer(instance).data
 
     message = {
         'type': BoardEventTypes.PALLET,
