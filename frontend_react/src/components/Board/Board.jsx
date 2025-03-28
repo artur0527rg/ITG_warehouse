@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuthApi from "../../utils/useAuthApi";
 import Header from "./Header/Header";
 import Storage from "./Storage/Storage";
+import './board.css'
 
 const Board = () => {
   const [selectedZone, selectZone] = useState();

@@ -13,12 +13,12 @@ const Column = ({ line }) => {
       totalPlaces++;
     });
     let lineStatus;
-    if (totalPlaces !== usedPlaces) {
-      lineStatus = "🟡 Partial";
+    if (totalPlaces !== 0 && usedPlaces === 0) {
+      lineStatus = "🟢 Free";
     } else if (totalPlaces === usedPlaces) {
       lineStatus = "🔴 Full";
     } else {
-      lineStatus = "🟢 Free";
+      lineStatus = "🟡 Partial";
     }
 
     lineStatus += ` (${usedPlaces} /  ${totalPlaces})`;

@@ -7,7 +7,7 @@ const Unit = ({ place }) => {
 
   return (
     <>
-    {pallet ? <FilledUnit pallet={pallet}/> : <BlankUnit/>}
+    {pallet ? <FilledUnit pallet={pallet} key={pallet.id}/> : <BlankUnit/>}
     </>
   );
 };
