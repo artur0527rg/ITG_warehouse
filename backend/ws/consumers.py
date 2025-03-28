@@ -28,10 +28,6 @@ class BoardConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         self.send(text_data='pong')
-        async_to_sync(self.channel_layer.group_send)(
-            ConsumerGroups.BOARD,
-            {"type": BoardEventTypes.PALLET, "message": 'message'},
-        )
 
     def order_update(self, event):
         self.send(text_data=json.dumps(event))
