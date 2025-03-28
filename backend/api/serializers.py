@@ -5,7 +5,7 @@ from logic.models import Zone, Line, Place, Order, Pallet
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id', 'bordero', 'vsa', 'color', 'description']
+        fields = ['id', 'bordero', 'vsa', 'color', 'name']
 
 
 class PalletSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class PalletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pallet
-        fields = ['id', 'order', 'order']
+        fields = ['id', 'order']
 
 
 class PlaceSerializer(serializers.ModelSerializer):

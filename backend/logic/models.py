@@ -32,7 +32,8 @@ class Place(models.Model):
 class Order(models.Model):
     bordero = models.IntegerField(unique=True)
     vsa = models.IntegerField()
-    color = models.CharField(max_length=7)
+    color = models.CharField(max_length=6)
+    name = models.CharField(max_length=5, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
