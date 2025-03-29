@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAuthApi from "../../utils/useAuthApi";
 import Header from "./Header/Header";
 import Search from "./Search/Search";
@@ -24,8 +24,8 @@ function deletePallet(zone, palletId) {
   };
 }
 
-/** Updates a pallet in the specified location */
-function updatePallet(zone, palletData) {
+/** Create a pallet in the specified location */
+function createPallet(zone, palletData) {
   if (!zone?.lines) return zone;
 
   return {
@@ -63,23 +63,6 @@ function updateOrderInAllPallets(zone, orderData) {
   };
 }
 
-/** Removes all pallets associated with an order (when order is deleted) */
-function deletePalletsByOrderId(zone, orderId) {
-  if (!zone?.lines) return zone;
-
-  return {
-    ...zone,
-    lines: zone.lines.map((line) => ({
-      ...line,
-      places: line.places.map((place) =>
-        place.pallet?.order?.id === orderId
-          ? { ...place, pallet: null } // Remove the pallet
-          : place
-      ),
-    })),
-  };
-}
-
 // Main Component
 
 const Board = () => {
@@ -87,7 +70,7 @@ const Board = () => {
   const [currentZone, setCurrentZone] = useState();
   const { order, setOrder } = useOrder();
   const apiClient = useAuthApi();
-  const [wsReady, wsVal, wsSend] = useWs();
+  const [wsReady, getWsMessages, wsSend, wsTrigger, ackMessage] = useWs();
 
   // Fetch zone data when selectedZone changes
   useEffect(() => {
@@ -105,47 +88,56 @@ const Board = () => {
     }
   }, [selectedZone]);
 
-  // Handle WebSocket messages
+  // Process WS messages
   useEffect(() => {
-    if (!wsVal) return;
+    const messages = getWsMessages();
 
-    try {
-      const { type, event, data } = JSON.parse(wsVal);
+    if (messages.length === 0) return;
+
+    let zoneNeedsUpdate = false;
+    let updatedZone = currentZone;
+    let orderNeedsUpdate = false;
+    let updatedOrder = order;
+
+    messages.forEach(({ uuid, type, event, data }) => {
       if (!type || !event || !data) return;
 
       if (type === "pallet.update") {
-        setCurrentZone((prev) => {
-          if (event === "delete") {
-            return deletePallet(prev, data.id);
-          } else {
-            return updatePallet(prev, data);
-          }
-        });
-      } else if (type === "order.update") {
-        setOrder((prev) => {
-          if (!prev) return;
-          if (data.id !== prev.id) return prev;
-
-          if (event === "delete") {
-            return undefined;
-          } else if (event === "update") {
-            return data;
-          }
-        });
-        setCurrentZone((prev) => {
-          if (event === "delete") {
-            // If order is deleted → remove all associated pallets
-            return deletePalletsByOrderId(prev, data.id);
-          } else {
-            // If order is updated → update it in all pallets
-            return updateOrderInAllPallets(prev, data);
-          }
-        });
+        zoneNeedsUpdate = true;
+        if (event === 'delete'){
+          updatedZone = deletePallet(updatedZone, data.id)
+        } else if (event === 'create') {
+          updatedZone = createPallet(updatedZone, data)
+        }
       }
-    } catch (error) {
-      console.error("Failed to parse WebSocket message:", error);
+
+      if (type === "order.update") {
+        if(order?.id === data.id){
+          orderNeedsUpdate = true;
+          if (event === 'delete'){
+            updatedOrder = undefined;
+          } else if (event === 'update') {
+            updatedOrder = data
+          }
+        }
+
+        if (event === 'update') {
+          zoneNeedsUpdate = true;
+          updatedZone = updateOrderInAllPallets(updatedZone, data);
+        }
+      }
+
+      ackMessage(uuid);
+    });
+
+    if (zoneNeedsUpdate) {
+      setCurrentZone(updatedZone);
     }
-  }, [wsVal]);
+
+    if (orderNeedsUpdate) {
+      setOrder(updatedOrder);
+    }
+  }, [wsTrigger]);
 
   return (
     <div className="board">
