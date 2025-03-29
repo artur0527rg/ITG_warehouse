@@ -8,7 +8,8 @@
 }
 
 .column-blank-unit,
-.column-unit {
+.column-unit,
+.column-add-unit {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +28,7 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.column-blank-unit-image {
+.column-unit-image {
   height: 40px;
 }
 

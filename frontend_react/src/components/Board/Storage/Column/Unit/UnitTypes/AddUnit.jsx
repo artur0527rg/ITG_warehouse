@@ -18,8 +18,9 @@ const AddUnit = ({ placeId }) => {
   };
 
   return (
-    <div className="column-blank-unit" onClick={addUnitHandler}>
-      <img className="column-blank-unit-image" src={addIcon} alt="" />
+
+    <div className="column-add-unit" onClick={addUnitHandler}>
+      <img className="column-unit-image" src={addIcon} alt="" />
     </div>
   );
 };
