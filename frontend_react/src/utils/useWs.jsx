@@ -25,7 +25,6 @@ export const useWs = () => {
     };
 
     socket.onmessage = (event) => {
-      console.log(JSON.parse(event.data).type)
       setVal(event.data);
     };
 
