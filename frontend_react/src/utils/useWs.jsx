@@ -9,6 +9,8 @@ export const useWs = () => {
   const BASE_URL = process.env.WS_URL + '/ws/board/'
 
   useEffect(() => {
+    if(isReady) return
+
     const socket = new WebSocket(BASE_URL)
 
     socket.onopen = () => setIsReady(true)
@@ -18,9 +20,11 @@ export const useWs = () => {
     ws.current = socket
 
     return () => {
-      socket.close()
-    }
-  }, [])
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.close();
+      }
+    };
+  }, [isReady])
 
   // bind is needed to make sure `send` references correct `this`
   return [isReady, val, ws.current?.send.bind(ws.current)]
