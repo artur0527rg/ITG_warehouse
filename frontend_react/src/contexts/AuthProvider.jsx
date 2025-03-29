@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const logIn = async (data) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/token-auth/", {
+      const response = await fetch(`${process.env.API_URL}/api/token-auth/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

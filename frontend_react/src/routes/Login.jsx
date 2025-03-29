@@ -40,7 +40,7 @@ const Login = () => {
 
         <form id="loginForm" onSubmit={handleSubmitEvent}>
           <div className="input-group">
-            <label for="username">Username</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
@@ -52,7 +52,7 @@ const Login = () => {
           </div>
 
           <div className="input-group">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
