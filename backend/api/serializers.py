@@ -9,6 +9,14 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class PalletSerializer(serializers.ModelSerializer):
+    order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
+
+    class Meta:
+        model = Pallet
+        fields = ['id', 'place', 'order']
+
+
+class PalletDetailSerializer(serializers.ModelSerializer):
     order = OrderSerializer()
 
     class Meta:
@@ -16,30 +24,30 @@ class PalletSerializer(serializers.ModelSerializer):
         fields = ['id', 'order']
 
 
-class PlaceSerializer(serializers.ModelSerializer):
-    pallet = PalletSerializer()
+class PlaceDetailSerializer(serializers.ModelSerializer):
+    pallet = PalletDetailSerializer()
 
     class Meta:
         model = Place
         fields = ['id', 'position', 'pallet']
 
 
-class LineSerializer(serializers.ModelSerializer):
-    places = PlaceSerializer(many=True)
+class LineDetailSerializer(serializers.ModelSerializer):
+    places = PlaceDetailSerializer(many=True)
 
     class Meta:
         model = Line
         fields = ['id', 'name', 'position', 'places']
 
 
-class ZoneListSerializer(serializers.ModelSerializer):
+class ZoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Zone
         fields = ['id', 'name', 'position']
 
 
 class ZoneDetailSerializer(serializers.ModelSerializer):
-    lines = LineSerializer(many=True)
+    lines = LineDetailSerializer(many=True)
     
     class Meta:
         model = Zone
@@ -49,4 +57,4 @@ class ZoneDetailSerializer(serializers.ModelSerializer):
         lines = Line.objects.filter(zone=obj).prefetch_related(
             'places__pallets__orders'
         )
-        return LineSerializer(lines, many=True).data
+        return LineDetailSerializer(lines, many=True).data
