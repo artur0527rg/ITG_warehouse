@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useState, useRef, useEffect } from "react";
 
 export const useWs = () => {
@@ -20,7 +21,7 @@ export const useWs = () => {
       try {
         const message = JSON.parse(event.data);
         if (!message.uuid) {
-          message.uuid = crypto.randomUUID();
+          message.uuid = uuidv4()
         }
         messagesMap.current.set(message.uuid, message);
         setTrigger(prev => prev+1);

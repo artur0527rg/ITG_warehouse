@@ -2,7 +2,7 @@
 .env
 *.sqlite3
 __pycache__
-migrations
+migrations/
 *.md
 test.html
 script.py
@@ -10,5 +10,6 @@ script.py
 # javascript env
 node_modules/
 dist/
+
 
 *.http
