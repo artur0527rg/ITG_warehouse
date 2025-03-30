@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 export const useWs = () => {
   const [isReady, setIsReady] = useState(false);
   const messagesMap = useRef(new Map()); // Храним сообщения по UUID
-  const [trigger, setTrigger] = useState(true);
+  const [trigger, setTrigger] = useState(0);
   const ws = useRef(null);
 
   const BASE_URL = process.env.WS_URL + "/ws/board/";
@@ -24,7 +24,7 @@ export const useWs = () => {
         }
         
         messagesMap.current.set(message.uuid, message);
-        setTrigger(prev => !prev);
+        setTrigger(prev => prev+1);
       } catch (error) {
         console.error("WS parse error:", error);
       }
