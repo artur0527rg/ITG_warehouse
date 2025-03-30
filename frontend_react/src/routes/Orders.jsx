@@ -1,4 +1,4 @@
-import Sidebar from "../components/SideBar/Sidebar"
+import Sidebar from "../components/Sidebar/Sidebar"
 import OrdersWindow from "../components/OrdersWindow/OrdersWindow"
 import './orders.css'
 

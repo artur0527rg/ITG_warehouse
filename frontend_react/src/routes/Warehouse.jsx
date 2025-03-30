@@ -1,4 +1,4 @@
-import Sidebar from "../components/SideBar/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 import "./warehouse.css";
 import Board from "../components/Board/Board";
 import OrderProvider from "../contexts/OrderProvider";
