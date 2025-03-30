@@ -6,9 +6,6 @@ from api.serializers import (
     PlaceDetailSerializer, LineDetailSerializer, ZoneSerializer,
     ZoneDetailSerializer,
 )
-from api.filters import (
-    LineFilter, PlaceFilter, OrderFilter, PalletFilter,
-)
 
 
 class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
@@ -22,22 +19,20 @@ class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
 class LineViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Line.objects.all()
     serializer_class = LineDetailSerializer
-    filterset_class = LineFilter
 
 class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceDetailSerializer
-    filterset_class = PlaceFilter
 
-class OrderViewSet(viewsets.ReadOnlyModelViewSet):
+class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    filterset_class = OrderFilter
+    filterset_fields = ['name', 'bordero', 'vsa']
+    search_fields = ['name', 'bordero', 'vsa']
 
 class PalletViewSet(viewsets.ModelViewSet):
     queryset = Pallet.objects.all()
     serializer_class = PalletSerializer
-    filterset_class = PalletFilter
 
     def get_serializer_class(self):
         if self.action == 'create':

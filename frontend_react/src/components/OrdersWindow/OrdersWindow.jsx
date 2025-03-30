@@ -1,37 +1,48 @@
-import { useState, useRef } from "react";
-import crossIcon from "../../../../assets/icons/cross.svg";
-import useAuthApi from "../../../../utils/useAuthApi";
-import "./searchwindow.css";
-import { useOrder } from "../../../../contexts/OrderProvider";
+import { useState, useRef, useEffect } from "react";
+import useAuthApi from "../../utils/useAuthApi";
+import "./OrdersWindow.css";
+import AddOrderButton from "./AddOrderButton/AddOrderButton";
 
-const SearchWindow = ({ setPopup }) => {
+const OrdersWindow = () => {
   const timeoutId = useRef();
-  const [orders, setOrders] = useState([]);
-  const { order, setOrder } = useOrder();
   const apiClient = useAuthApi();
+  const [orders, setOrders] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const searchOrder = async (query) => {
+  const getOrders = () => {
     clearTimeout(timeoutId.current);
     timeoutId.current = setTimeout(async () => {
-      const orders = await apiClient.get(`/orders/`, {
-        params: { search: query },
+      const response = await apiClient.get(`/orders/`, {
+        params: {
+          search: searchQuery,
+          ordering: "-bordero",
+        },
       });
-      setOrders(orders.data);
+      setOrders(response.data);
     }, 1200);
   };
 
-  const selectOrder = (order) => {
-    clearTimeout(timeoutId.current);
-    setPopup(false);
-    setOrder(order);
+  useEffect(() => {
+    getOrders();
+  }, [searchQuery]);
+
+  const deleteOrder = async (orderId) => {
+    try {
+      await apiClient.delete(`/orders/${orderId}/`);
+      setSearchQuery("");
+    } catch (error) {
+      console.err("Failed to delete order:", error);
+    }
+    getOrders();
   };
 
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
-    <div className="search-window">
+    <div className="orders-window">
       <div className="search-column">
-        <div className="close-popup-button" onClick={() => setPopup(false)}>
-          <img className="close-pupup-image" src={crossIcon} />
-        </div>
         <div className="search-input-group">
           <svg className="search-icon" aria-hidden="true" viewBox="0 0 24 24">
             <g>
@@ -42,7 +53,8 @@ const SearchWindow = ({ setPopup }) => {
             placeholder="Search"
             type="search"
             className="search-input"
-            onChange={(e) => searchOrder(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
 
@@ -53,7 +65,7 @@ const SearchWindow = ({ setPopup }) => {
               key={order.id}
               style={{ backgroundColor: `#${order.color}` }}
               onClick={() => {
-                selectOrder(order);
+                deleteOrder(order.id);
               }}
             >
               <span className="name">Name: {order.name}</span>
@@ -67,4 +79,4 @@ const SearchWindow = ({ setPopup }) => {
   );
 };
 
-export default SearchWindow;
+export default OrdersWindow;

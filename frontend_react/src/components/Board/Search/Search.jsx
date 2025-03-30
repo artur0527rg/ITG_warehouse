@@ -12,7 +12,7 @@ const Search = () => {
     <>
       {popup && <SearchWindow setPopup={setPopup} />}
       <div
-        className={`search-container ${order && "active-order"}`}
+        className={`search-button ${order && "active-order"}`}
         onClick={() => {
           if (order) {
             setOrder();
