@@ -3,7 +3,7 @@
 *.sqlite3
 __pycache__
 migrations/
-*.md
+commands.md
 test.html
 script.py
 
