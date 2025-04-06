@@ -10,11 +10,6 @@ const Unit = ({ place }) => {
   const palletOrder = orders.find(order=>order.id===pallet?.order)
 
   let unitToShow;
-
-  if (place.id === 43) {
-    console.log(pallet)
-  }
-
   
   if (!pallet && !selectedOrder){
     unitToShow = <BlankUnit/>

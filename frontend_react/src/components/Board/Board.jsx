@@ -30,34 +30,26 @@ const Board = () => {
       try {
         // Fetch lines
         let response;
-        response = await apiClient.get("lines/", {
-          params: {
-            zone: selectedZone,
-          },
+        response = await apiClient.post("lines/filter/", {
+          zone: selectZone,
         });
         const lines = response.data;
         setLines(lines);
         // Fetch places
-        response = await apiClient.get("places/", {
-          params: {
-            line__in: lines.map((line) => line.id).toString(),
-          },
+        response = await apiClient.post("places/filter/", {
+          line__in: lines.map((line) => line.id).toString(),
         });
         const places = response.data;
         setPlaces(places);
         // Fetch pallets and orders
-        response = await apiClient.get("pallets/", {
-          params: {
-            place__in: places.map((place) => place.id).toString(),
-          },
+        response = await apiClient.post("pallets/filter/", {
+          place__in: places.map((place) => place.id).toString(),
         });
         const pallets = response.data;
-        response = await apiClient.get("orders/", {
-          params: {
-            id__in: Array.from(
-              new Set(pallets.map((pallet) => pallet.order))
-            ).toString(),
-          },
+        response = await apiClient.post("orders/filter/", {
+          id__in: Array.from(
+            new Set(pallets.map((pallet) => pallet.order))
+          ).toString(),
         });
         const orders = response.data;
         setOrders(orders);

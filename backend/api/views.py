@@ -5,6 +5,7 @@ from api.serializers import (
     PalletSerializer, OrderSerializer, PlaceSerializer, LineSerializer,
     ZoneSerializer,
 )
+from api.mixins import PostFilterMixin
 
 
 class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
@@ -12,13 +13,13 @@ class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ZoneSerializer
 
 
-class LineViewSet(viewsets.ReadOnlyModelViewSet):
+class LineViewSet(PostFilterMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Line.objects.all()
     serializer_class = LineSerializer
     filterset_fields = ['zone']
 
 
-class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
+class PlaceViewSet(PostFilterMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
     filterset_fields = {
@@ -26,7 +27,7 @@ class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
     }
 
 
-class OrderViewSet(viewsets.ModelViewSet):
+class OrderViewSet(PostFilterMixin, viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     filterset_fields = ['id',]
@@ -37,9 +38,9 @@ class OrderViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'bordero', 'vsa']
 
 
-class PalletViewSet(viewsets.ModelViewSet):
+class PalletViewSet(PostFilterMixin, viewsets.ModelViewSet):
     queryset = Pallet.objects.all()
-    serializer_class = PalletSerializer
+    serializer_class = PalletSerializer 
     filterset_fields = {
         'place': ['exact', 'in'],
     }
