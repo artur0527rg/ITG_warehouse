@@ -1,90 +1,74 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useAuthApi from "../../utils/useAuthApi";
 import Header from "./Header/Header";
 import Search from "./Search/Search";
 import Storage from "./Storage/Storage";
 import "./board.css";
 import { useWs } from "../../utils/useWs";
-import { useOrder } from "../../contexts/OrderProvider";
-
-// Helper Functions
-
-/** Removes a pallet by its ID */
-function deletePallet(zone, palletId) {
-  if (!zone?.lines) return zone;
-
-  return {
-    ...zone,
-    lines: zone.lines.map((line) => ({
-      ...line,
-      places: line.places.map((place) =>
-        place.pallet?.id === palletId ? { ...place, pallet: null } : place
-      ),
-    })),
-  };
-}
-
-/** Create a pallet in the specified location */
-function createPallet(zone, palletData) {
-  if (!zone?.lines) return zone;
-
-  return {
-    ...zone,
-    lines: zone.lines.map((line) => ({
-      ...line,
-      places: line.places.map((place) =>
-        place.id === palletData.place ? { ...place, pallet: palletData } : place
-      ),
-    })),
-  };
-}
-
-/** Updates order information in all pallets */
-function updateOrderInAllPallets(zone, orderData) {
-  if (!zone?.lines) return zone;
-
-  return {
-    ...zone,
-    lines: zone.lines.map((line) => ({
-      ...line,
-      places: line.places.map((place) => {
-        if (!place.pallet || place.pallet.order?.id !== orderData.id) {
-          return place; // Skip if pallet isn't associated with this order
-        }
-        return {
-          ...place,
-          pallet: {
-            ...place.pallet,
-            order: orderData, // Update order data
-          },
-        };
-      }),
-    })),
-  };
-}
-
-// Main Component
+import { useBoard } from "../../contexts/BoardProvider";
 
 const Board = () => {
   const [selectedZone, selectZone] = useState();
-  const [currentZone, setCurrentZone] = useState();
-  const { order, setOrder } = useOrder();
   const apiClient = useAuthApi();
+  const {
+    selectedOrder,
+    selectOrder,
+    lines,
+    setLines,
+    places,
+    setPlaces,
+    orders,
+    setOrders,
+    pallets,
+    setPallets,
+  } = useBoard();
   const [wsReady, getWsMessages, wsSend, wsTrigger, ackMessage] = useWs();
 
   // Fetch zone data when selectedZone changes
   useEffect(() => {
-    const fetchZone = async () => {
+    const fetchBoard = async () => {
       try {
-        const zone = await apiClient(`zones/${selectedZone}`);
-        setCurrentZone(zone.data);
+        // Fetch lines
+        let response;
+        response = await apiClient.get("lines/", {
+          params: {
+            zone: selectedZone,
+          },
+        });
+        const lines = response.data;
+        setLines(lines);
+        // Fetch places
+        response = await apiClient.get("places/", {
+          params: {
+            line__in: lines.map((line) => line.id).toString(),
+          },
+        });
+        const places = response.data;
+        setPlaces(places);
+        // Fetch pallets and orders
+        response = await apiClient.get("pallets/", {
+          params: {
+            place__in: places.map((place) => place.id).toString(),
+          },
+        });
+        const pallets = response.data;
+        response = await apiClient.get("orders/", {
+          params: {
+            id__in: Array.from(
+              new Set(pallets.map((pallet) => pallet.order))
+            ).toString(),
+          },
+        });
+        const orders = response.data;
+        setOrders(orders);
+        setPallets(pallets);
       } catch (error) {
         console.error("Failed to fetch zone:", error);
       }
     };
 
     if (selectedZone) {
-      fetchZone();
+      fetchBoard();
     }
   }, [selectedZone]);
 
@@ -94,48 +78,65 @@ const Board = () => {
 
     if (messages.length === 0) return;
 
-    let zoneNeedsUpdate = false;
-    let updatedZone = currentZone;
+    let palletsNeedUpdate = false;
+    let ordersNeedUpdate = false;
     let orderNeedsUpdate = false;
-    let updatedOrder = order;
+    let updatedPallets = pallets;
+    let updatedOrders = orders;
+    let updatedOrder = selectedOrder;
 
     messages.forEach(({ uuid, type, event, data }) => {
       if (!type || !event || !data) return;
 
       if (type === "pallet.update") {
-        zoneNeedsUpdate = true;
-        if (event === 'delete'){
-          updatedZone = deletePallet(updatedZone, data.id)
-        } else if (event === 'create') {
-          updatedZone = createPallet(updatedZone, data)
+        palletsNeedUpdate = true;
+        const orderData = data.order;
+        const palletData = {
+          ...data,
+          order: orderData.id,
+        };
+        if (event === "delete") {
+          updatedPallets = updatedPallets.filter(
+            (pallet) => pallet.id !== palletData.id
+          );
+        } else if (event === "create") {
+          updatedPallets = [...updatedPallets, palletData];
+          if (!updatedOrders.find((order) => order.id === orderData.id)) {
+            ordersNeedUpdate = true;
+            updatedOrders = [...updatedOrders, orderData];
+          }
         }
       }
 
       if (type === "order.update") {
-        if(order?.id === data.id){
-          orderNeedsUpdate = true;
-          if (event === 'delete'){
-            updatedOrder = undefined;
-          } else if (event === 'update') {
-            updatedOrder = data
-          }
-        }
+        const orderData = data;
 
-        if (event === 'update') {
-          zoneNeedsUpdate = true;
-          updatedZone = updateOrderInAllPallets(updatedZone, data);
+        if (event === "delete") {
+          ordersNeedUpdate = true;
+          updatedOrders = updatedOrders.filter(
+            (order) => order.id !== orderData.id
+          );
+
+          if (selectedOrder?.id === orderData.id) {
+            orderNeedsUpdate = true;
+            updatedOrder = undefined;
+          }
         }
       }
 
       ackMessage(uuid);
     });
 
-    if (zoneNeedsUpdate) {
-      setCurrentZone(updatedZone);
+    if (palletsNeedUpdate) {
+      setPallets(updatedPallets);
+    }
+
+    if (ordersNeedUpdate) {
+      setOrders(updatedOrders);
     }
 
     if (orderNeedsUpdate) {
-      setOrder(updatedOrder);
+      selectOrder(updatedOrder);
     }
   }, [wsTrigger]);
 
@@ -143,7 +144,7 @@ const Board = () => {
     <div className="board">
       <Header selectedZone={selectedZone} selectZone={selectZone} />
       <Search />
-      {currentZone && <Storage zone={currentZone} />}
+      {selectedZone && <Storage zone={selectedZone} />}
     </div>
   );
 };

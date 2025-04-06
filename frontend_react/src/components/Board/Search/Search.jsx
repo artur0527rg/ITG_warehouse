@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useOrder } from "../../../contexts/OrderProvider";
+import { useBoard } from "../../../contexts/BoardProvider";
 import searchIcon from "../../../assets/icons/search.svg";
 import crossIcon from "../../../assets/icons/cross.svg";
 import SearchWindow from "./SearchWindow/SearchWindow";
@@ -7,15 +7,15 @@ import "./search.css";
 
 const Search = () => {
   const [popup, setPopup] = useState(false);
-  const { order, setOrder } = useOrder();
+  const { selectedOrder, selectOrder } = useBoard();
   return (
     <>
       {popup && <SearchWindow setPopup={setPopup} />}
       <div
-        className={`search-button ${order && "active-order"}`}
+        className={`search-button ${selectedOrder && "active-order"}`}
         onClick={() => {
-          if (order) {
-            setOrder();
+          if (selectedOrder) {
+            selectOrder();
           } else {
             setPopup(true);
           }                  
@@ -23,7 +23,7 @@ const Search = () => {
       >
         <img
           className="search-image"
-          src={order ? crossIcon : searchIcon}
+          src={selectedOrder ? crossIcon : searchIcon}
           alt=""
         />
       </div>

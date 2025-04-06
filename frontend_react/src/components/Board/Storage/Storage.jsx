@@ -1,9 +1,11 @@
 import { useRef, useEffect } from "react";
 import Column from "./Column/Column";
 import "./storage.css";
+import { useBoard } from "../../../contexts/BoardProvider";
 
-const Storage = ({ zone }) => {
-  const lines = zone.lines.sort((a, b) => a.position - b.position);
+const Storage = () => {
+  let { lines } = useBoard()
+  lines = lines.sort((a, b) => a.position - b.position);
 
   const containerRef = useRef(null);
   const transformState = useRef({

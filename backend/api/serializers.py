@@ -16,45 +16,19 @@ class PalletSerializer(serializers.ModelSerializer):
         fields = ['id', 'place', 'order']
 
 
-class PalletDetailSerializer(serializers.ModelSerializer):
-    order = OrderSerializer()
-
-    class Meta:
-        model = Pallet
-        fields = ['id', 'order']
-
-
-class PlaceDetailSerializer(serializers.ModelSerializer):
-    pallet = PalletDetailSerializer()
-
+class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
-        fields = ['id', 'position', 'pallet']
+        fields = ['id', 'position', 'line']
 
 
-class LineDetailSerializer(serializers.ModelSerializer):
-    places = PlaceDetailSerializer(many=True)
-
+class LineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Line
-        fields = ['id', 'name', 'position', 'places']
+        fields = ['id', 'name', 'position', 'zone']
 
 
 class ZoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Zone
         fields = ['id', 'name', 'position']
-
-
-class ZoneDetailSerializer(serializers.ModelSerializer):
-    lines = LineDetailSerializer(many=True)
-    
-    class Meta:
-        model = Zone
-        fields = ['id', 'position', 'name', 'lines']
-
-    def get_lines(self, obj):
-        lines = Line.objects.filter(zone=obj).prefetch_related(
-            'places__pallets__orders'
-        )
-        return LineDetailSerializer(lines, many=True).data

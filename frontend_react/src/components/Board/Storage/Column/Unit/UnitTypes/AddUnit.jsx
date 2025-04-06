@@ -1,16 +1,16 @@
-import { useOrder } from "../../../../../../contexts/OrderProvider";
+import { useBoard } from "../../../../../../contexts/BoardProvider";
 import useAuthApi from "../../../../../../utils/useAuthApi";
 import addIcon from "../../../../../../assets/icons/add.svg";
 
 const AddUnit = ({ placeId }) => {
   const apiClient = useAuthApi();
-  const { order } = useOrder();
+  const { selectedOrder } = useBoard();
 
   const addUnitHandler = async () => {
     try {
       await apiClient.post("/pallets/", {
         place: placeId,
-        order: order.id,
+        order: selectedOrder.id,
       });
     } catch (error) {
       console.error("Failed to add pallet:", error);

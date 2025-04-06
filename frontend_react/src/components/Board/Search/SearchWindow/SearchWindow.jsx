@@ -2,12 +2,12 @@ import { useState, useRef } from "react";
 import crossIcon from "../../../../assets/icons/cross.svg";
 import useAuthApi from "../../../../utils/useAuthApi";
 import "./searchwindow.css";
-import { useOrder } from "../../../../contexts/OrderProvider";
+import { useBoard } from "../../../../contexts/BoardProvider";
 
 const SearchWindow = ({ setPopup }) => {
   const timeoutId = useRef();
   const [orders, setOrders] = useState([]);
-  const { order, setOrder } = useOrder();
+  const { selectedOrder, selectOrder } = useBoard();
   const apiClient = useAuthApi();
 
   const searchOrder = async (query) => {
@@ -16,14 +16,14 @@ const SearchWindow = ({ setPopup }) => {
       const orders = await apiClient.get(`/orders/`, {
         params: { search: query },
       });
-      setOrders(orders.data);
+      setOrders(orders.data.slice(0, 5));
     }, 1200);
   };
 
-  const selectOrder = (order) => {
+  const clickHandler = (order) => {
     clearTimeout(timeoutId.current);
     setPopup(false);
-    setOrder(order);
+    selectOrder(order);
   };
 
   return (
@@ -53,7 +53,7 @@ const SearchWindow = ({ setPopup }) => {
               key={order.id}
               style={{ backgroundColor: `#${order.color}` }}
               onClick={() => {
-                selectOrder(order);
+                clickHandler(order);
               }}
             >
               <span className="name">Name: {order.name}</span>

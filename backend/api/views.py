@@ -2,39 +2,44 @@ from rest_framework import viewsets
 
 from logic.models import Zone, Line, Place, Order, Pallet
 from api.serializers import (
-    OrderSerializer, PalletSerializer, PalletDetailSerializer,
-    PlaceDetailSerializer, LineDetailSerializer, ZoneSerializer,
-    ZoneDetailSerializer,
+    PalletSerializer, OrderSerializer, PlaceSerializer, LineSerializer,
+    ZoneSerializer,
 )
 
 
 class ZoneViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Zone.objects.all()
-    
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return ZoneSerializer
-        return ZoneDetailSerializer
+    serializer_class = ZoneSerializer
+
 
 class LineViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Line.objects.all()
-    serializer_class = LineDetailSerializer
+    serializer_class = LineSerializer
+    filterset_fields = ['zone']
+
 
 class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Place.objects.all()
-    serializer_class = PlaceDetailSerializer
+    serializer_class = PlaceSerializer
+    filterset_fields = {
+        'line': ['exact', 'in'],
+    }
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    filterset_fields = ['name', 'bordero', 'vsa']
+    filterset_fields = ['id',]
+    filterset_fields = {
+        'id': ['exact', 'in'],
+    }
+
     search_fields = ['name', 'bordero', 'vsa']
+
 
 class PalletViewSet(viewsets.ModelViewSet):
     queryset = Pallet.objects.all()
     serializer_class = PalletSerializer
-
-    def get_serializer_class(self):
-        if self.action == 'create':
-            return PalletSerializer
-        return PalletDetailSerializer
+    filterset_fields = {
+        'place': ['exact', 'in'],
+    }

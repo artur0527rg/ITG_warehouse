@@ -1,13 +1,18 @@
 import Unit from "./Unit/Unit";
 import "./column.css";
+import { useBoard } from "../../../../contexts/BoardProvider";
 
 const Column = ({ line }) => {
-  const places = line.places.sort((a, b)=>a.position - b.positon);
-  const getCapacity = (line) => {
+  let { places, pallets } = useBoard();
+  places = places
+    .filter((place) => place.line === line.id)
+    .sort((a, b) => a.position - b.positon);
+
+  const getCapacity = () => {
     let usedPlaces = 0;
     let totalPlaces = 0;
-    line.places.forEach((place) => {
-      if (place.pallet) {
+    places.forEach((place) => {
+      if (pallets.find((pallet) => pallet.place === place.id)) {
         usedPlaces++;
       }
       totalPlaces++;
@@ -29,11 +34,11 @@ const Column = ({ line }) => {
     <div className="column-container">
       <div className="column-info">
         <div className="column-name">{line.name}</div>
-        <div className="column-capacity">{getCapacity(line)}</div>
+        <div className="column-capacity">{getCapacity()}</div>
       </div>
       <div className="column-units">
-        {places.map((place)=>(
-          <Unit place={place} key={place.id}/>
+        {places.map((place) => (
+          <Unit place={place} key={place.id} />
         ))}
       </div>
     </div>
