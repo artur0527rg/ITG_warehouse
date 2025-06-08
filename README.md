@@ -122,11 +122,11 @@ Prerequisites
             server_name your-domain.com www.your-domain.com;
 
             location /api/ {
-                    proxy_pass http://127.0.0.1:8000$uri;
+                    proxy_pass http://127.0.0.1:8000$uri$is_args$args;
             }
 
             location /ws/ {
-                    proxy_pass http://127.0.0.1:8000$uri;
+                    proxy_pass http://127.0.0.1:8000$uri$is_args$args;
                     proxy_http_version 1.1;
                     proxy_set_header Upgrade $http_upgrade;
                     proxy_set_header Connection "upgrade";
