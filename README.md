@@ -1,6 +1,8 @@
 # 🏭 ITG Warehouse
 
-**ITG Warehouse** is a warehouse management system developed to simplify inventory processes and optimize the supply chain. The project consists of several components:
+**ITG Warehouse** is a warehouse management system developed to simplify inventory processes and optimize the supply chain.
+
+![image](/assets/screenshot.png "preview")
 
 ## Project Structure
 
