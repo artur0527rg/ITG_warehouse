@@ -16,8 +16,8 @@ const CreateOrder = () => {
     setForm_(prev => {
       const newValue = value ?? '';
       if (key === 'name') return { ...prev, name: newValue.slice(0, 5) };
-      if (key === 'bordero') return { ...prev, bordero: parseInt(newValue.slice(0, 6)) || 0 };
-      if (key === 'vsa') return { ...prev, vsa: parseInt(newValue.slice(0, 5)) || 0 };
+      if (key === 'bordero') return { ...prev, bordero: parseInt(newValue.slice(0, 6), 10) || 0 };
+      if (key === 'vsa') return { ...prev, vsa: parseInt(newValue.slice(0, 5), 10) || 0 };
       if (key === 'color') return { ...prev, color: newValue.slice(1) };
       return prev;
     });
@@ -61,7 +61,7 @@ const CreateOrder = () => {
         placeholder="Border number (e.g., 617654)"
         type="number"
         className="create-order-input"
-        value={form.bordero}
+        value={`${form.bordero}`}
         onChange={(e)=>setForm('bordero', e.target.value)}
       />
       </div>
@@ -74,7 +74,7 @@ const CreateOrder = () => {
         placeholder="VSA number (e.g., 47322)"
         type="number"
         className="create-order-input"
-        value={form.vsa}
+        value={`${form.vsa}`}
         onChange={(e)=>setForm('vsa', e.target.value)}
       />
       </div>
