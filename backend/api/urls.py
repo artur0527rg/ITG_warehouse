@@ -4,6 +4,7 @@ from rest_framework.authtoken import views
 
 from api.views import (
   ZoneViewSet, LineViewSet, PlaceViewSet, OrderViewSet, PalletViewSet,
+  delete_orphaned_orders,
 )
 
 router = DefaultRouter()
@@ -15,5 +16,6 @@ router.register(r'pallets', PalletViewSet)
 
 urlpatterns = [
   path('token-auth/', views.obtain_auth_token),
+  path('orders/cleanup/', delete_orphaned_orders, name='orders-cleanup'),
   path('', include(router.urls)),
 ]
