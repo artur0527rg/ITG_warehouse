@@ -3,4 +3,5 @@
   flex-wrap: nowrap;
   padding: 10px;
   transform-origin: 0 0;
+  touch-action: none;
 }
