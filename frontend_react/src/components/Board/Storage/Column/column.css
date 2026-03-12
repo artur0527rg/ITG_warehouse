@@ -17,10 +17,6 @@
   font-weight: bold;
 }
 
-.column-capacity {
-  color: rgb(129, 129, 129);
-}
-
 .column-units {
   display: flex;
   flex-direction: column;
