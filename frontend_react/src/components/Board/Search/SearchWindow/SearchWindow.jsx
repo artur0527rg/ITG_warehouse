@@ -39,6 +39,7 @@ const SearchWindow = ({ setPopup }) => {
             </g>
           </svg>
           <input
+            autoFocus
             placeholder="Search"
             type="search"
             className="search-input"

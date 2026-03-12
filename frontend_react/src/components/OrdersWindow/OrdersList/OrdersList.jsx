@@ -48,6 +48,7 @@ const OrdersList = () => {
             </g>
           </svg>
           <input
+            autoFocus
             placeholder="Search"
             type="search"
             className="search-input"
